@@ -2,24 +2,19 @@
 using namespace std;
 
 
-void newf(int &sim[N][M]){
-    sim[N-1][M-1]=0;
-}
-
-void getseqSimMat(string seq1, string seq2, float Match, float MisMatch, float (&s)[rows][cols]){
-    ROW_SIZE = seq1.size();
-    COL_SIZE = seq2.size();
+void getseqSimMat(string seq1, string seq2, float Match, float MisMatch, float *s){
+    int ROW_SIZE = seq1.size();
+    int COL_SIZE = seq2.size();
     for(int i = 0; i < ROW_SIZE; i++){
         for(int j = 0; j < COL_SIZE; j++){
-            seq1[i] == seq2[j] ? s[i][j] = Match : s[i][j] = MisMatch;
+        	//*(s+i*COL_SIZE + j) = 6;
+            seq1[i] == seq2[j] ? *((s+i*COL_SIZE) + j) = Match : *((s+i*COL_SIZE) + j) = MisMatch;
         }
     }
 }
 
 void printLengthOfSeq(string seq){
-    int ROW_SIZE;
-    ROW_SIZE = seq.size();
-    cout << "The length of sequence is " << seq[2] << endl;
+    cout << "The length of sequence is " << seq.size() << endl;
 }
 
 int main()
@@ -37,12 +32,6 @@ int main()
 
     int VecMat[ROW_SIZE*COL_SIZE]= {1,5,13, 2,6,14, 3,7,15, 4,8,16};
 
-    for(int i = 0; i < ROW_SIZE; i++){
-        for(int j = 0; j < COL_SIZE; j++){
-            cout << m[i][j] << " ";
-        }
-        cout << endl;
-    }
     int k[ROW_SIZE][COL_SIZE] = {0};
     int ROW_IDX;
     int COL_IDX;
@@ -92,7 +81,14 @@ int main()
     float s[4][5];
     printLengthOfSeq(seq1);
     printLengthOfSeq(seq2);
-    //getseqSimMat(seq1, seq2, Match, MisMatch, s);
+    getseqSimMat(seq1, seq2, Match, MisMatch, &s[0][0]); // getseqSimMat(seq1, seq2, Match, MisMatch, (float *)s); 
+    
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 5; j++){
+            cout << s[i][j] << " ";
+        }
+        cout << endl;
+    }
 
 
     int i;
