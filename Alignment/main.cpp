@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <limits>
+
 #define NA -1
 using namespace std;
 
@@ -100,6 +102,33 @@ struct AlignObj
     int signalA_len;
     int signalB_len;
     float Gap;
+    bool FreeEndGaps;
+};
+
+struct AffineAlignObj
+{
+    float* M;
+    float* A;
+    float* B;
+    string* Traceback;
+    AffineAlignObj(int ROW_SIZE, int COL_SIZE)
+    {
+        M = new float[ROW_SIZE * COL_SIZE];
+        A = new float[ROW_SIZE * COL_SIZE];
+        B = new float[ROW_SIZE * COL_SIZE];
+        Traceback = new string[3 * ROW_SIZE * COL_SIZE];
+    }
+    ~AffineAlignObj()
+    {
+        delete[] M;
+        delete[] A;
+        delete[] B;
+        delete[] Traceback;
+    }
+    int signalA_len;
+    int signalB_len;
+    float GapOpen;
+    float GapExten;
     bool FreeEndGaps;
 };
 
@@ -221,35 +250,131 @@ AlignObj doAlignment(float *s, int signalA_len, int signalB_len, float gap, bool
     return alignObj;
 }
 
+AffineAlignObj doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, float ge, bool OverlapAlignment){
+    AffineAlignObj affineAlignObj(signalA_len+1, signalB_len+1);
+    affineAlignObj.FreeEndGaps = OverlapAlignment;
+    affineAlignObj.GapOpen = go;
+    affineAlignObj.GapExten = ge;
+    affineAlignObj.signalA_len = signalA_len;
+    affineAlignObj.signalB_len = signalB_len;
+
+    float M[signalA_len+1][signalB_len+1];
+    initializeMatrix(*M, 0, signalA_len+1, signalB_len+1);
+
+    float A[signalA_len+1][signalB_len+1];
+    initializeMatrix(*A, 0, signalA_len+1, signalB_len+1);
+
+    float B[signalA_len+1][signalB_len+1];
+    initializeMatrix(*B, 0, signalA_len+1, signalB_len+1);
+
+    // enum TbPointer{STOP='S', T='T', D='D', L='L'};
+    string Traceback[3][signalA_len+1][signalB_len+1]; // Traceback[0,1,2] = Traceback[TrM,TrA,TrB]
+    //initializeMatrix(*Traceback, 'S', signalA_len+1, signalB_len+1);
+
+    // Initialize first row and first column for global and overlap alignment.
+    float Inf = std::numeric_limits<float>::infinity();
+    for(int i = 0; i<=signalA_len; i++){
+        M[i][0] = -Inf;
+        B[i][0] = -Inf;
+        Traceback[0][i][0] = "SS"; //STOP
+        Traceback[2][i][0] = "SS"; //STOP
+    }
+    for(int j = 0; j<=signalB_len; j++){
+        M[0][j] = -Inf;
+        A[0][j] = -Inf;
+        Traceback[0][0][j] = "SS"; //STOP
+        Traceback[1][0][j] = "SS"; //STOP
+    }
+    M[0][0] = 0;
+    if(affineAlignObj.FreeEndGaps == true){
+        for(int i = 1; i<=signalA_len; i++){
+            A[i][0] = 0;
+            Traceback[1][i][0] = "TA"; //TOP A
+        }
+        for(int j = 1; j<=signalB_len; j++){
+            B[0][j] = 0;
+            Traceback[2][0][j] = "LB"; //LEFT B
+        }
+    } else {
+        for(int i = 1; i<=signalA_len; i++){
+            A[i][0] = -(i-1)*ge - go;
+            Traceback[1][i][0] = "TA"; //TOP A
+        }
+        for(int j = 1; j<=signalB_len; j++){
+            B[0][j] = -(j-1)*ge - go;
+            Traceback[2][0][j] = "LB"; //LEFT B
+        }
+    }
+
+    // Perform dynamic programming for affine alignment
+    float Diago, gapInA, gapInB;
+    for(int j=1; j<=signalB_len; j++ ){
+        for(int i=1; i<=signalA_len; i++){
+            float sI_1J_1 = *((s+(i-1)*signalB_len) + j-1);
+            Diago = M[i-1][j-1] + sI_1J_1;
+            gapInA = A[i-1][j-1] + sI_1J_1;
+            gapInB = B[i-1][j-1] + sI_1J_1;
+
+            // Calculate recursively for matched alignment
+            if(Diago>=gapInA && Diago>=gapInB){
+                Traceback[0][i][j] = "DM"; // DM: Diagonal TrM
+                M[i][j] = Diago;
+            }
+            else if (gapInA>=Diago && gapInA>=gapInB){
+                Traceback[0][i][j] = "DA"; // DA: Diagonal TrA
+                M[i][j] = gapInA;
+            }
+            else{
+                Traceback[0][i][j] = "DB"; // DB: Diagonal TrB
+                M[i][j] = gapInB;
+            }
+
+            // Calculate recursively for gap in signalB
+            if((M[i-1][j]-go) >= (A[i-1][j]-ge) && (M[i-1][j]-go) >= (B[i-1][j]-go)){
+                Traceback[1][i][j] = "TM"; // TM: Top TrM
+                A[i][j] = M[i-1][j]-go;
+            }
+            else if ((A[i-1][j]-ge) >= (M[i-1][j]-go) && (A[i-1][j]-ge) >= (B[i-1][j]-go)){
+                Traceback[1][i][j] = "TA"; // TA: Top TrA
+                A[i][j] = A[i-1][j]-ge;
+            }
+            else{
+                Traceback[1][i][j] = "TB"; // TB: Top TrB
+                A[i][j] = B[i-1][j]-go;
+            }
+
+            // Calculate recursively for gap in signalA
+            if((M[i][j-1]-go) >= (A[i][j-1]-go) && (M[i][j-1]-go) >= (B[i][j-1]-ge)){
+                Traceback[2][i][j] = "LM"; // TM: Top TrM
+                B[i][j] = M[i][j-1]-go;
+            }
+            else if ((A[i][j-1]-go) >= (M[i][j-1]-go) && (A[i][j-1]-go) >= (B[i][j-1]-ge)){
+                Traceback[2][i][j] = "LA"; // TA: Top TrA
+                B[i][j] = A[i][j-1]-go;
+            }
+            else{
+                Traceback[2][i][j] = "LB"; // TB: Top TrB
+                B[i][j] = B[i][j-1]-ge;
+            }
+        }
+    }
+
+    cout << "M matrix is : " << endl;
+    printMatrix((float *)M, signalA_len+1, signalB_len+1);
+    printMatrix((float *)A, signalA_len+1, signalB_len+1);
+    printMatrix((float *)B, signalA_len+1, signalB_len+1);
+    // printMatrix((string *)Traceback[0], signalA_len+1, signalB_len+1);
+
+    affineAlignObj.M = *M;
+    affineAlignObj.A = *A;
+    affineAlignObj.B = *B;
+    affineAlignObj.Traceback = **Traceback;
+    cout << "IN the loop " << endl;
+    return affineAlignObj;
+}
 
 int main()
 {
-    int m[ROW_SIZE][COL_SIZE]=
-        {
-            {1,2,3,4},
-            {5,6,7,8},
-            {13,14,15,16}
-        };
-    int VecMat[ROW_SIZE*COL_SIZE]= {1,5,13, 2,6,14, 3,7,15, 4,8,16};
-
-    int k[ROW_SIZE][COL_SIZE] = {0};
-    int ROW_IDX;
-    int COL_IDX;
-    for(int i=0; i < ROW_SIZE*COL_SIZE; i++){
-        ROW_IDX = i%ROW_SIZE;
-        COL_IDX = i/ROW_SIZE;
-        k[ROW_IDX][COL_IDX] = 2*VecMat[i];
-    }
-    cout << "Printing K" << endl;
-    for(int i = 0; i < ROW_SIZE; i++){
-        for(int j = 0; j < COL_SIZE; j++){
-            cout << k[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    //NeedleAlignObj doGlobalAlignment(float s, float gap){
-    //}
     float Match=10, MisMatch=-2, go=22, ge=7, gap=go;
     string seq1 = "GCAT";
     string seq2 = "CAGTG";
@@ -257,35 +382,23 @@ int main()
     int seq2Len = seq2.size();
     float s[seq1Len][seq2Len];
     initializeMatrix(*s, 0, seq1Len, seq2Len);
-    printMatrix(*s, seq1Len, seq2Len);
     getseqSimMat(seq1, seq2, Match, MisMatch, &s[0][0]); // getseqSimMat(seq1, seq2, Match, MisMatch, (float *)s);
     cout << "Similarity matrix is : " << endl;
     printMatrix(*s, seq1Len, seq2Len);
-    cout << sizeof(s) / sizeof(s[0]) << endl;
-    cout << sizeof(s[0]) / sizeof(s[0][0]) << endl;
+    int signalA_len = sizeof(s) / sizeof(s[0]);
+    int signalB_len = sizeof(s[0]) / sizeof(s[0][0]);
     bool OverlapAlignment = true;
 
     AlignObj alignObj;
     alignObj = doAlignment(*s, seq1Len, seq2Len, gap, OverlapAlignment);
+    AffineAlignObj affineAlignObj(seq1Len+1, seq2Len+1); // What if this length is different than used inside the function.
+    affineAlignObj = doAffineAlignment(*s, seq1Len, seq2Len, go, ge, OverlapAlignment);
+    cout << "Out the loop " << endl;
 
-    AlignedIndices alignedIdx;
-    alignedIdx = getAlignedIndices(alignObj);
-
-    int ChromA_Len = sizeof(s) / sizeof(s[0]);
-    int ChromB_Len = sizeof(s[0]) / sizeof(s[0][0]);
-
-    cout << endl;
-    for (vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
-        cout << *it << " ";
-
-    cout << endl;
-    for (vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
-        cout << *it << " ";
-
-    cout << endl;
-    for (vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
-        cout << *it << " ";
-    cout << endl;
+    cout << "M matrix is : " << endl;
+    printMatrix((float *)affineAlignObj.M, signalA_len+1, signalB_len+1);
+    printMatrix((float *)affineAlignObj.A, signalA_len+1, signalB_len+1);
+    printMatrix((float *)affineAlignObj.B, signalA_len+1, signalB_len+1);
 
     return 0;
 }
