@@ -3,7 +3,7 @@
 #include <cstring>
 #include <vector>
 #include <limits>
-#define NA -1
+#define NA 0
 
 //using namespace std;
 
@@ -505,6 +505,18 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
         }
     }
 
+    std::cout << "************************" << std::endl;
+    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    std::cout << "************************" << std::endl;
+
     alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
     alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
     alignedIdx.score.insert(alignedIdx.score.begin(), affineAlignmentScore);
@@ -515,15 +527,15 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
         switch(TracebackPointer){
         // In the code below, we are appending future values. Because, once we go to the M,A or B matrix.
         // we will not be able to tell which matrix we are currently in.
-        case DM:
-        {
+        case DM: {
             ROW_IDX = ROW_IDX-1;
             MatName = M;
             COL_IDX = COL_IDX-1;
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(),  *(affineAlignObj.M+ROW_IDX*COL_SIZE+COL_IDX));
-        }
+            break;
+                }
         case DA:
         {
             ROW_IDX = ROW_IDX-1;
@@ -532,6 +544,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(),  *(affineAlignObj.A+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case DB:
         {
@@ -541,6 +554,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(),  *(affineAlignObj.B+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case TM:
         {
@@ -549,6 +563,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), NA);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.M+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case TA:
         {
@@ -557,6 +572,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), NA);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.A+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case TB:
         {
@@ -565,6 +581,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), NA);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.B+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case LM:
         {
@@ -573,6 +590,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), NA);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.M+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case LA:
         {
@@ -581,6 +599,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), NA);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.A+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
         case LB:
         {
@@ -589,11 +608,28 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
             alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), NA);
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(), *(affineAlignObj.B+ROW_IDX*COL_SIZE+COL_IDX));
+            break;
         }
-        }
+            }
+
         TracebackPointer = *(affineAlignObj.Traceback+MatName*ROW_SIZE*COL_SIZE+ROW_IDX*COL_SIZE+COL_IDX);
         }
 
+    std::cout << "************************" << std::endl;
+    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
+        std::cout << *it << " ";
+    std::cout << std::endl;
+    std::cout << "************************" << std::endl;
+
+    alignedIdx.score.erase(alignedIdx.score.begin());
+    alignedIdx.indexA_aligned.erase(alignedIdx.indexA_aligned.begin());
+    alignedIdx.indexB_aligned.erase(alignedIdx.indexB_aligned.begin());
     return alignedIdx;
 }
 
