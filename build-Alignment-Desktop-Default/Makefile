@@ -123,6 +123,87 @@ Alignment/fast:
 	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/build
 .PHONY : Alignment/fast
 
+affinealignment.o: affinealignment.cpp.o
+
+.PHONY : affinealignment.o
+
+# target to build an object file
+affinealignment.cpp.o:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignment.cpp.o
+.PHONY : affinealignment.cpp.o
+
+affinealignment.i: affinealignment.cpp.i
+
+.PHONY : affinealignment.i
+
+# target to preprocess a source file
+affinealignment.cpp.i:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignment.cpp.i
+.PHONY : affinealignment.cpp.i
+
+affinealignment.s: affinealignment.cpp.s
+
+.PHONY : affinealignment.s
+
+# target to generate assembly for a file
+affinealignment.cpp.s:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignment.cpp.s
+.PHONY : affinealignment.cpp.s
+
+affinealignobj.o: affinealignobj.cpp.o
+
+.PHONY : affinealignobj.o
+
+# target to build an object file
+affinealignobj.cpp.o:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignobj.cpp.o
+.PHONY : affinealignobj.cpp.o
+
+affinealignobj.i: affinealignobj.cpp.i
+
+.PHONY : affinealignobj.i
+
+# target to preprocess a source file
+affinealignobj.cpp.i:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignobj.cpp.i
+.PHONY : affinealignobj.cpp.i
+
+affinealignobj.s: affinealignobj.cpp.s
+
+.PHONY : affinealignobj.s
+
+# target to generate assembly for a file
+affinealignobj.cpp.s:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignobj.cpp.s
+.PHONY : affinealignobj.cpp.s
+
+alignment.o: alignment.cpp.o
+
+.PHONY : alignment.o
+
+# target to build an object file
+alignment.cpp.o:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/alignment.cpp.o
+.PHONY : alignment.cpp.o
+
+alignment.i: alignment.cpp.i
+
+.PHONY : alignment.i
+
+# target to preprocess a source file
+alignment.cpp.i:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/alignment.cpp.i
+.PHONY : alignment.cpp.i
+
+alignment.s: alignment.cpp.s
+
+.PHONY : alignment.s
+
+# target to generate assembly for a file
+alignment.cpp.s:
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/alignment.cpp.s
+.PHONY : alignment.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +240,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Alignment"
+	@echo "... affinealignment.o"
+	@echo "... affinealignment.i"
+	@echo "... affinealignment.s"
+	@echo "... affinealignobj.o"
+	@echo "... affinealignobj.i"
+	@echo "... affinealignobj.s"
+	@echo "... alignment.o"
+	@echo "... alignment.i"
+	@echo "... alignment.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

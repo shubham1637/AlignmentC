@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Alignment.dir/affinealignobj.cpp.o"
+  "CMakeFiles/Alignment.dir/alignment.cpp.o"
+  "CMakeFiles/Alignment.dir/affinealignment.cpp.o"
   "CMakeFiles/Alignment.dir/main.cpp.o"
   "Alignment.pdb"
   "Alignment"

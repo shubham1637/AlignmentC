@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop
 CMakeFiles/Alignment.dir/all:
 	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/depend
 	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=1,2 "Built target Alignment"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=1,2,3,4,5 "Built target Alignment"
 .PHONY : CMakeFiles/Alignment.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/Alignment.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Alignment.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Alignment.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles 0
 .PHONY : CMakeFiles/Alignment.dir/rule

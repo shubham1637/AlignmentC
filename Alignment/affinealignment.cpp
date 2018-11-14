@@ -24,6 +24,7 @@ void doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, flo
     *(affineAlignObj.M+0*(signalB_len+1)+0) = 0;
     if(affineAlignObj.FreeEndGaps == true){
         for(int i = 1; i<=signalA_len; i++){
+            //affineAlignObj.A[i*(signalB_len+1) + 0] = 0;
             *(affineAlignObj.A+i*(signalB_len+1)+0) = 0;
             *(affineAlignObj.Traceback + 1*((signalA_len+1)*(signalB_len+1))+ i*(signalB_len+1)+0) = TA; //TOP A
         }
@@ -33,6 +34,7 @@ void doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, flo
         }
     } else {
         for(int i = 1; i<=signalA_len; i++){
+            //affineAlignObj.A[i*(signalB_len+1) + 0] = -(i-1)*ge - go;
             *(affineAlignObj.A+i*(signalB_len+1)+0) = -(i-1)*ge - go;
             *(affineAlignObj.Traceback + 1*((signalA_len+1)*(signalB_len+1))+ i*(signalB_len+1)+0) = TA; //TOP A
         }
@@ -102,7 +104,7 @@ void doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, flo
     }
 }
 
-AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
+AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj){
     AlignedIndices alignedIdx;
     char TracebackPointer;
     tbJump MatName;
@@ -145,17 +147,17 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj){
         }
     }
 
-    std::cout << "************************" << std::endl;
-    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    std::cout << "************************" << std::endl;
+//    std::cout << "************************" << std::endl;
+//    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    std::cout << "************************" << std::endl;
 
     alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
     alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);

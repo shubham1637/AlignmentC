@@ -35,6 +35,13 @@ template<class T1, class T2> // Don't know why do I have to specify this line ev
 void initializeMatrix(T1 *s, T2 val, int ROW_SIZE, int COL_SIZE);
 
 template<class T>
-void printMatrix(T *s, int ROW_SIZE, int COL_SIZE);
+void printMatrix(T *s, int ROW_SIZE, int COL_SIZE){
+    for(int i = 0; i < ROW_SIZE; i++){
+        for(int j = 0; j < COL_SIZE; j++){
+            std::cout << *((s+i*COL_SIZE) + j) << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 
 #endif // ALIGNMENT_H

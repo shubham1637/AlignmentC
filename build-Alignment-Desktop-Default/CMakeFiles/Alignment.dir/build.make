@@ -57,9 +57,81 @@ include CMakeFiles/Alignment.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Alignment.dir/flags.make
 
+CMakeFiles/Alignment.dir/affinealignobj.cpp.o: CMakeFiles/Alignment.dir/flags.make
+CMakeFiles/Alignment.dir/affinealignobj.cpp.o: /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Alignment.dir/affinealignobj.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Alignment.dir/affinealignobj.cpp.o -c /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.cpp
+
+CMakeFiles/Alignment.dir/affinealignobj.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Alignment.dir/affinealignobj.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.cpp > CMakeFiles/Alignment.dir/affinealignobj.cpp.i
+
+CMakeFiles/Alignment.dir/affinealignobj.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Alignment.dir/affinealignobj.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.cpp -o CMakeFiles/Alignment.dir/affinealignobj.cpp.s
+
+CMakeFiles/Alignment.dir/affinealignobj.cpp.o.requires:
+
+.PHONY : CMakeFiles/Alignment.dir/affinealignobj.cpp.o.requires
+
+CMakeFiles/Alignment.dir/affinealignobj.cpp.o.provides: CMakeFiles/Alignment.dir/affinealignobj.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignobj.cpp.o.provides.build
+.PHONY : CMakeFiles/Alignment.dir/affinealignobj.cpp.o.provides
+
+CMakeFiles/Alignment.dir/affinealignobj.cpp.o.provides.build: CMakeFiles/Alignment.dir/affinealignobj.cpp.o
+
+
+CMakeFiles/Alignment.dir/alignment.cpp.o: CMakeFiles/Alignment.dir/flags.make
+CMakeFiles/Alignment.dir/alignment.cpp.o: /home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Alignment.dir/alignment.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Alignment.dir/alignment.cpp.o -c /home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp
+
+CMakeFiles/Alignment.dir/alignment.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Alignment.dir/alignment.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp > CMakeFiles/Alignment.dir/alignment.cpp.i
+
+CMakeFiles/Alignment.dir/alignment.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Alignment.dir/alignment.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp -o CMakeFiles/Alignment.dir/alignment.cpp.s
+
+CMakeFiles/Alignment.dir/alignment.cpp.o.requires:
+
+.PHONY : CMakeFiles/Alignment.dir/alignment.cpp.o.requires
+
+CMakeFiles/Alignment.dir/alignment.cpp.o.provides: CMakeFiles/Alignment.dir/alignment.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/alignment.cpp.o.provides.build
+.PHONY : CMakeFiles/Alignment.dir/alignment.cpp.o.provides
+
+CMakeFiles/Alignment.dir/alignment.cpp.o.provides.build: CMakeFiles/Alignment.dir/alignment.cpp.o
+
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.o: CMakeFiles/Alignment.dir/flags.make
+CMakeFiles/Alignment.dir/affinealignment.cpp.o: /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Alignment.dir/affinealignment.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Alignment.dir/affinealignment.cpp.o -c /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.cpp
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Alignment.dir/affinealignment.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.cpp > CMakeFiles/Alignment.dir/affinealignment.cpp.i
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Alignment.dir/affinealignment.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.cpp -o CMakeFiles/Alignment.dir/affinealignment.cpp.s
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.o.requires:
+
+.PHONY : CMakeFiles/Alignment.dir/affinealignment.cpp.o.requires
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.o.provides: CMakeFiles/Alignment.dir/affinealignment.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Alignment.dir/build.make CMakeFiles/Alignment.dir/affinealignment.cpp.o.provides.build
+.PHONY : CMakeFiles/Alignment.dir/affinealignment.cpp.o.provides
+
+CMakeFiles/Alignment.dir/affinealignment.cpp.o.provides.build: CMakeFiles/Alignment.dir/affinealignment.cpp.o
+
+
 CMakeFiles/Alignment.dir/main.cpp.o: CMakeFiles/Alignment.dir/flags.make
 CMakeFiles/Alignment.dir/main.cpp.o: /home/shubham/RostLab/2018/AlignmentC/Alignment/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Alignment.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Alignment.dir/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Alignment.dir/main.cpp.o -c /home/shubham/RostLab/2018/AlignmentC/Alignment/main.cpp
 
 CMakeFiles/Alignment.dir/main.cpp.i: cmake_force
@@ -83,15 +155,21 @@ CMakeFiles/Alignment.dir/main.cpp.o.provides.build: CMakeFiles/Alignment.dir/mai
 
 # Object files for target Alignment
 Alignment_OBJECTS = \
+"CMakeFiles/Alignment.dir/affinealignobj.cpp.o" \
+"CMakeFiles/Alignment.dir/alignment.cpp.o" \
+"CMakeFiles/Alignment.dir/affinealignment.cpp.o" \
 "CMakeFiles/Alignment.dir/main.cpp.o"
 
 # External object files for target Alignment
 Alignment_EXTERNAL_OBJECTS =
 
+Alignment: CMakeFiles/Alignment.dir/affinealignobj.cpp.o
+Alignment: CMakeFiles/Alignment.dir/alignment.cpp.o
+Alignment: CMakeFiles/Alignment.dir/affinealignment.cpp.o
 Alignment: CMakeFiles/Alignment.dir/main.cpp.o
 Alignment: CMakeFiles/Alignment.dir/build.make
 Alignment: CMakeFiles/Alignment.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Alignment"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Alignment"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Alignment.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -99,6 +177,9 @@ CMakeFiles/Alignment.dir/build: Alignment
 
 .PHONY : CMakeFiles/Alignment.dir/build
 
+CMakeFiles/Alignment.dir/requires: CMakeFiles/Alignment.dir/affinealignobj.cpp.o.requires
+CMakeFiles/Alignment.dir/requires: CMakeFiles/Alignment.dir/alignment.cpp.o.requires
+CMakeFiles/Alignment.dir/requires: CMakeFiles/Alignment.dir/affinealignment.cpp.o.requires
 CMakeFiles/Alignment.dir/requires: CMakeFiles/Alignment.dir/main.cpp.o.requires
 
 .PHONY : CMakeFiles/Alignment.dir/requires

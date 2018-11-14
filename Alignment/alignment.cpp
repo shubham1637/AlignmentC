@@ -99,9 +99,9 @@ AlignObj doAlignment(float *s, int signalA_len, int signalB_len, float gap, bool
         }
     }
 
-    std::cout << "M matrix is : " << std::endl;
-    printMatrix((float *)M, signalA_len+1, signalB_len+1);
-    printMatrix((char *)Traceback, signalA_len+1, signalB_len+1);
+    //std::cout << "M matrix is : " << std::endl;
+    //printMatrix((float *)M, signalA_len+1, signalB_len+1);
+    //printMatrix((char *)Traceback, signalA_len+1, signalB_len+1);
 
     // Copy cumulative score matrix(M) and traceback matrix into a instance of AlignObj.
     for (int i = 0; i < signalA_len+1; i++) {
@@ -118,15 +118,6 @@ AlignObj doAlignment(float *s, int signalA_len, int signalB_len, float gap, bool
     return alignObj;
 }
 
-template<class T>
-void printMatrix(T *s, int ROW_SIZE, int COL_SIZE){
-    for(int i = 0; i < ROW_SIZE; i++){
-        for(int j = 0; j < COL_SIZE; j++){
-            std::cout << *((s+i*COL_SIZE) + j) << " ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 template<class T1, class T2> // Don't know why do I have to specify this line everytime. It is just the rule.
 void initializeMatrix(T1 *s, T2 val, int ROW_SIZE, int COL_SIZE){

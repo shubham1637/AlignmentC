@@ -7,7 +7,7 @@
 
 void doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, float ge, bool OverlapAlignment, AffineAlignObj &affineAlignObj);
 
-AlignedIndices getAffineAlignedIndices(AffineAlignObj affineAlignObj);
+AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj);
 
 template<class T>
 T getOlapAffineAlignStartIndices(T *MatrixM, T *MatrixA, T *MatrixB, int ROW_SIZE, int COL_SIZE, int &OlapStartRow, int &OlapStartCol, tbJump &MatrixName);

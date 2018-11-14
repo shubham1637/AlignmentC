@@ -84,6 +84,24 @@
          </MakeCommands>
       </Target>
       </Build>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.cpp">
+         <Option target="Alignment"/>
+      </Unit>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignment.h">
+         <Option target="Alignment"/>
+      </Unit>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.cpp">
+         <Option target="Alignment"/>
+      </Unit>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/affinealignobj.h">
+         <Option target="Alignment"/>
+      </Unit>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp">
+         <Option target="Alignment"/>
+      </Unit>
+      <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.h">
+         <Option target="Alignment"/>
+      </Unit>
       <Unit filename="/home/shubham/RostLab/2018/AlignmentC/Alignment/main.cpp">
          <Option target="Alignment"/>
       </Unit>
