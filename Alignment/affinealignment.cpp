@@ -257,17 +257,17 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj){
         TracebackPointer = *(affineAlignObj.Traceback+MatName*ROW_SIZE*COL_SIZE+ROW_IDX*COL_SIZE+COL_IDX);
         }
 
-    std::cout << "************************" << std::endl;
-    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
-    std::cout << "************************" << std::endl;
+//    std::cout << "************************" << std::endl;
+//    for (std::vector<float>::iterator it = alignedIdx.score.begin(); it != alignedIdx.score.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    for (std::vector<int>::iterator it = alignedIdx.indexA_aligned.begin(); it != alignedIdx.indexA_aligned.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    for (std::vector<int>::iterator it = alignedIdx.indexB_aligned.begin(); it != alignedIdx.indexB_aligned.end(); it++)
+//        std::cout << *it << " ";
+//    std::cout << std::endl;
+//    std::cout << "************************" << std::endl;
 
     alignedIdx.score.erase(alignedIdx.score.begin());
     alignedIdx.indexA_aligned.erase(alignedIdx.indexA_aligned.begin());

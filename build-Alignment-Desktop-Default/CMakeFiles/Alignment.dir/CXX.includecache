@@ -31,6 +31,8 @@ iostream
 -
 cstring
 -
+vector
+-
 
 /home/shubham/RostLab/2018/AlignmentC/Alignment/alignment.cpp
 alignment.h

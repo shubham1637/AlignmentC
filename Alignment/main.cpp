@@ -39,6 +39,7 @@ int main()
     AlignObj alignObj;
     alignObj = doAlignment(*s, seq1Len, seq2Len, gap, OverlapAlignment);
     AffineAlignObj affineAlignObj(seq1Len+1, seq2Len+1); // What if this length is different than used inside the function.
+    AffineAlignObjNew affineAlignObjNew(seq1Len+1, seq2Len+1);
     doAffineAlignment(*s, seq1Len, seq2Len, go, ge, OverlapAlignment, affineAlignObj);
     std::cout << "Out the loop " << std::endl;
 

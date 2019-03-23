@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <vector>
 
 enum TracebackType {SS = 0, DM = 1, DA = 2, DB = 3, TM = 4, TA = 5, TB = 6, LM = 7, LA = 8, LB = 9};
 
@@ -84,5 +85,56 @@ struct AffineAlignObj
         delete[] Traceback;
     }
 };
+
+struct AffineAlignObjNew
+{
+    std::vector<float> M;
+    std::vector<float> A;
+    std::vector<float> B;
+    std::vector<TracebackType> Traceback;
+    int signalA_len; // stack allocation
+    int signalB_len;
+    float GapOpen;
+    float GapExten;
+    bool FreeEndGaps;
+
+    // Not a default constructor
+    AffineAlignObjNew(int ROW_SIZE, int COL_SIZE)
+    {
+        M.resize(ROW_SIZE * COL_SIZE, 0);
+        A.resize(ROW_SIZE * COL_SIZE, 0);
+        B.resize(ROW_SIZE * COL_SIZE, 0);
+        Traceback.resize(3 * ROW_SIZE * COL_SIZE, SS);
+        signalA_len = ROW_SIZE-1;
+        signalB_len = COL_SIZE-1;
+    }
+
+    // Rule 1 Copy constructor
+    AffineAlignObjNew(const AffineAlignObj &other)
+    {
+        signalA_len = other.signalA_len;
+        signalB_len = other.signalB_len;
+        GapOpen = other.GapOpen;
+        GapExten = other.GapExten;
+        FreeEndGaps = other.FreeEndGaps;
+       }
+
+    // Rule 2 Copy assignment operator
+    AffineAlignObjNew& operator=(const AffineAlignObjNew& other)
+    {
+        if(this == &other) return *this; // handling of self assignment.
+        signalA_len = other.signalA_len;
+        signalB_len = other.signalB_len;
+        GapOpen = other.GapOpen;
+        GapExten = other.GapExten;
+        FreeEndGaps = other.FreeEndGaps;
+        return *this;
+    }
+
+    // Rule 3 Not a default destructor
+    ~AffineAlignObjNew()
+    { }
+};
+
 
 #endif // AFFINEALIGNOBJ_H
