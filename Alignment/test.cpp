@@ -6,6 +6,7 @@
 #include "alignment.h"
 #include "affinealignobj.h"
 #include "affinealignment.h"
+#include "chromSimMatrix.hpp"
 
 void getseqSimMat(std::string seq1, std::string seq2, float Match, float MisMatch, float *s){
     int ROW_SIZE = seq1.size();
@@ -313,6 +314,53 @@ void test_getAffineAlignedIndices()
     }
 }
 
+void test_chromSimMatrix()
+{
+    SimMatrix s;
+    // std::fill(s.data.begin(), s.data.end(), 0);
+    s.data.resize(100, 0);
+    s.n_col = 10;
+    s.n_row = 10;
+
+    std::vector<double> chromtrace1a = {1.0, 2, 3, 5, 7, 5, 3, 2, 1, 1};
+    std::vector<double> chromtrace1b = {1.0, 3, 6, 12, 9, 5, 3, 2, 1, 1}; // scaled a bit
+
+    std::vector<double> chromtrace2a = {1.0, 1.0, 3, 5, 7, 5, 3, 2, 1, 1}; // shifted by 1
+    std::vector<double> chromtrace2b = {1.0, 1.0,3, 6, 12, 9, 5, 3, 2, 1}; // scaled a bit and shifted
+
+    auto d1 = {chromtrace1a, chromtrace1b};
+    auto d2 = {chromtrace2a, chromtrace2b};
+    getSimilarityMatrix(d1, d2, s, "dotProduct");
+
+    // for (int i = 0; i < s.n_row; i++)
+    // {
+    //   std::cout << std::endl;
+    //   for (int j = 0; j < s.n_col; j++)
+    //     std::cout << s.data[i*s.n_col + j] << " " ;
+    // }
+
+    std::vector< double > cmp_arr = {
+			0.152207, 0.380518, 0.684932, 1.29376, 1.21766, 0.761035, 0.456621, 0.304414, 0.152207, 0.152207,
+			0.152207, 0.380518, 0.684932, 1.29376, 1.21766, 0.761035, 0.456621, 0.304414, 0.152207, 0.152207,
+			0.456621, 1.14155, 2.05479, 3.88128, 3.65297, 2.28311, 1.36986, 0.913242, 0.456621, 0.456621,
+			0.837139, 2.1309, 3.88128, 7.38204, 6.77321, 4.18569, 2.51142, 1.67428, 0.837139, 0.837139,
+			1.44597, 3.80518, 7.07763, 13.6225, 11.9482, 7.22983, 4.3379, 2.89193, 1.44597, 1.44597,
+			1.06545, 2.81583, 5.25114, 10.1218, 8.82801, 5.32725, 3.19635, 2.1309, 1.06545, 1.06545,
+			0.608828, 1.59817, 2.96804, 5.70776, 5.02283, 3.04414, 1.82648, 1.21766, 0.608828, 0.608828,
+			0.380518, 0.989346, 1.82648, 3.50076, 3.12024, 1.90259, 1.14155, 0.761035, 0.380518, 0.380518,
+			0.228311, 0.608828, 1.14155, 2.207, 1.90259, 1.14155, 0.684932, 0.456621, 0.228311, 0.228311,
+			0.152207, 0.380518, 0.684932, 1.29376, 1.21766, 0.761035, 0.456621, 0.304414, 0.152207, 0.152207
+    };
+
+    double eps = 1e-4;
+    for (int i = 0; i < s.n_row * s.n_col; i++)
+    {
+      // std::cout << std::abs(cmp_arr[i] - s.data[i]) << " : " << cmp_arr[i] << " " << s.data[i]  << " at " << i << std::endl;
+      assert( std::abs(cmp_arr[i] - s.data[i]) < eps);
+    }
+
+
+}
 
 int main()
 {
@@ -320,6 +368,7 @@ int main()
     test_doAlignment();
     test_doAffineAlignment();
     test_getAffineAlignedIndices();
+    test_chromSimMatrix();
     return 0;
 }
 
