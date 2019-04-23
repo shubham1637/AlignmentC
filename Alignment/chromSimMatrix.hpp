@@ -33,7 +33,7 @@ void addOuterProduct(const std::vector<double>& d1, const std::vector<double>& d
   {
     for (int j = 0; j < n; j++)
     {
-      s.data[i + n*j] += d1[i] * d2[j];
+      s.data[i*n + j] += d1[i] * d2[j];
     }
   }
 } 
@@ -49,7 +49,7 @@ void addOuterProductEuclidian(const std::vector<double>& d1, const std::vector<d
   {
     for (int j = 0; j < n; j++)
     {
-      s.data[i + n*j] += (d1[i] - d2[j]) * (d1[i] - d2[j]);
+      s.data[i*n + j] += (d1[i] - d2[j]) * (d1[i] - d2[j]);
     }
   }
 } 
