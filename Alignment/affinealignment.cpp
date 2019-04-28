@@ -45,6 +45,26 @@ void doAffineAlignment(float *s, int signalA_len, int signalB_len, float go, flo
     }
 
     // Perform dynamic programming for affine alignment
+    // TODO: you may gain performance if you use pointers here instead of calculating the offset every time, e.g. do
+    /*
+    auto m_ptr = affineAlignObj.M; // maybe ?
+    auto a_ptr = // same
+    auto b_ptr = // same
+
+    auto tr_0 = affineAlignObj.Traceback + 0*((signalA_len+1)*(signalB_len+1));
+    auto tr_1 = // same
+    auto tr_2 = // same
+    for(int i=1; i<=signalA_len; i++){
+       for(int j=1; j<=signalB_len; j++){
+         // do work here
+         Diago = *m_ptr + sI_1J_1;
+
+         m_ptr++; a_ptr++; b_ptr++;
+         tr_0++; tr_1++; tr_2++;
+       }
+       m_ptr++; a_ptr++; b_ptr++; // one extra?
+       tr_0++; tr_1++; tr_2++; // one extra?
+       */
     float Diago, gapInA, gapInB;
     for(int i=1; i<=signalA_len; i++){
         for(int j=1; j<=signalB_len; j++){
@@ -159,6 +179,8 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj){
 //    std::cout << std::endl;
 //    std::cout << "************************" << std::endl;
 
+    // TODO: appending to the front is highly inefficient for std::vector - it causes memory re-allocation for every event!
+    // Instead: use push_back to append to back, and then std::reverse!
     alignedIdx.indexA_aligned.insert(alignedIdx.indexA_aligned.begin(), ROW_IDX);
     alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
     alignedIdx.score.insert(alignedIdx.score.begin(), affineAlignmentScore);
@@ -177,7 +199,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj){
             alignedIdx.indexB_aligned.insert(alignedIdx.indexB_aligned.begin(), COL_IDX);
             alignedIdx.score.insert(alignedIdx.score.begin(),  *(affineAlignObj.M+ROW_IDX*COL_SIZE+COL_IDX));
             break;
-                }
+                } // TODO: use consistent bracket style!
         case DA:
         {
             ROW_IDX = ROW_IDX-1;
@@ -269,6 +291,7 @@ AlignedIndices getAffineAlignedIndices(AffineAlignObj &affineAlignObj){
 //    std::cout << std::endl;
 //    std::cout << "************************" << std::endl;
 
+    // TODO: Erasing the front is inefficient for std::vector!
     alignedIdx.score.erase(alignedIdx.score.begin());
     alignedIdx.indexA_aligned.erase(alignedIdx.indexA_aligned.begin());
     alignedIdx.indexB_aligned.erase(alignedIdx.indexB_aligned.begin());
@@ -280,6 +303,11 @@ T getOlapAffineAlignStartIndices(T *MatrixM, T *MatrixA, T *MatrixB, int ROW_SIZ
     T affineAlignmentScore;
     float maxScore = -std::numeric_limits<float>::infinity();
     int MaxRowIndex, MaxColIndex;
+
+    // TODO: this needs more comments! -- is this the right edge of the matrix?
+    // same here: use ptrs:
+    // auto m_ptr = MatrixM + COL_SIZE -1;
+    // for ... { m_ptr += COL_SIZE }
     for(int i = 0; i < ROW_SIZE; i++){
         if(*(MatrixM+i*COL_SIZE+COL_SIZE-1) >= maxScore){
             MaxRowIndex = i;
@@ -298,6 +326,11 @@ T getOlapAffineAlignStartIndices(T *MatrixM, T *MatrixA, T *MatrixB, int ROW_SIZ
             maxScore = *(MatrixB+i*COL_SIZE+COL_SIZE-1);
         }
     }
+
+    // TODO: this needs more comments! -- is this the bottom edge of the matrix?
+    // same here: use ptrs:
+    // auto m_ptr = MatrixM + (ROW_SIZE-1)*COL_SIZE;
+    // for ... { m_ptr++;}
     for (int j = 0; j < COL_SIZE; j++){
         if(*(MatrixM+(ROW_SIZE-1)*COL_SIZE+j) >= maxScore){
             MaxRowIndex = ROW_SIZE-1;
@@ -321,3 +354,4 @@ T getOlapAffineAlignStartIndices(T *MatrixM, T *MatrixA, T *MatrixB, int ROW_SIZ
     affineAlignmentScore = maxScore;
     return affineAlignmentScore;
 }
+
