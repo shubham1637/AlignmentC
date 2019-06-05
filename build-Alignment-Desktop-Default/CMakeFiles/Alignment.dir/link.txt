@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/Alignment.dir/affinealignobj.cpp.o CMakeFiles/Alignment.dir/alignment.cpp.o CMakeFiles/Alignment.dir/affinealignment.cpp.o CMakeFiles/Alignment.dir/main.cpp.o  -o Alignment -rdynamic 

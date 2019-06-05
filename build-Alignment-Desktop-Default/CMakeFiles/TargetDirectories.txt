@@ -1,3 +1,0 @@
-/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles/rebuild_cache.dir
-/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles/edit_cache.dir
-/home/shubham/RostLab/2018/AlignmentC/build-Alignment-Desktop-Default/CMakeFiles/Alignment.dir
