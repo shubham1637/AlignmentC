@@ -9,6 +9,8 @@ enum TracebackType {SS = 0, DM = 1, DA = 2, DB = 3, TM = 4, TA = 5, TB = 6, LM =
 
 std::ostream& operator<<(std::ostream& out, const TracebackType value);
 
+std::vector<char> conv(std::vector<TracebackType> v);
+
 enum tbJump {M = 0, A = 1, B = 2};
 
 struct AffineAlignObj

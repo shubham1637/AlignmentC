@@ -19,3 +19,12 @@ std::ostream& operator<<(std::ostream& out, const TracebackType value){
 #undef PROCESS_VAL
     return out << s;
 }
+
+
+std::vector<char> conv(std::vector<TracebackType> v) {
+    std::vector<char> nv(v.begin(), v.end());
+    for (auto& it : nv) it += 48;
+    //std::vector<char> nv(v.size());
+    //std::transform(v.begin(), v.end(), nv.begin(), [](TracebackType c) -> char {return (c + 48); });
+    return nv;
+}
